@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>注册界面</title>
@@ -22,19 +22,19 @@
         </div>
         <div class="txt txt0">
             <span style="letter-spacing:16px;">账号:</span>
-            <input id="acc" name="" type="text" class="txtphone" placeholder="请输入账号"/>
+            <input id="acc" name="" type="text" class="txtphone" placeholder="请输入账号" onblur="validateAcc()"/>
         </div>
         <div class="txt txt0">
             <span style="letter-spacing:4px;">登录密码:</span>
-            <input id="pwd" name="" type="text" class="txtphone" placeholder="请输入密码"/>
+            <input id="pwd" name="" type="password" class="txtphone" placeholder="请输入密码" onblur="validatePwd()"/>
         </div>
         <div class="txt txt0">
             <span style="letter-spacing:4px;">电话号码:</span>
-            <input id="phone" name="" type="text" class="txtphone" placeholder="请输入手机号码"/>
+            <input id="phone" name="" type="text" class="txtphone" placeholder="请输入手机号码" onblur="validatePhone()"/>
         </div>
          <div class="txt txt0">
              <span style="letter-spacing:4px;">电子邮箱:</span>
-             <input id="email" name="" type="text" class="txtphone" placeholder="请输入电子邮箱"/>
+             <input id="email" name="" type="text" class="txtphone" placeholder="请输入电子邮箱" onblur="validateEmail()"/>
          </div>
         <div class="txt txt0">
 <!--            <a href="zhuce.html"><span      style=" float:left;color:#31acfb"><返回上一步</span></a>-->
@@ -52,12 +52,54 @@
 </div>
 </body>
 <script src="../js/jquery-3.5.1.js"></script>
-<script>
+<script type="text/javascript">
     //页面高度设置
     $(document).ready(function () {
         var height=$(document).height();
         $('.main').css('height',height);
     })
+
+    //格式验证
+    //账号
+    function validateAcc(){
+        var len=$("#acc").val().length;
+        if(len<=18&&len>=6){
+            $("#acc").css("border","1px solid green");
+        }else{
+            $("#acc").css("border","1px solid red");
+        }
+    }
+    //密码
+    function validatePwd(){
+        var len=$("#pwd").val().length;
+        if(len<=18&&len>=6){
+            $("#pwd").css("border","1px solid green");
+        }else{
+            $("#pwd").css("border","1px solid red");
+        }
+    }
+    //电话号
+    function validatePhone(){
+        var len=$("#phone").val().length;
+        for(var i=0;i<len;i++) {
+            if (len === 11 && $("#phone").val().charCodeAt(i) >= 48 && $("#phone").val().charCodeAt(i) <= 57) {
+                $("#phone").css("border", "1px solid green");
+            } else {
+                $("#phone").css("border", "1px solid red");
+            }
+        }
+    }
+    //邮箱
+    function validateEmail(){
+        if($("#email").val().indexOf("@")===-1){
+            $("#email").css("border", "1px solid red");
+        }else {
+            $("#email").css("border", "1px solid green");
+        }
+
+
+    }
+
 
     //发送注册信息
     function register(){
@@ -72,10 +114,10 @@
             type:"post",
             contentType:"application/json",
             dataType:"json",
-            success:function (mark){
-                if (mark==1){
+            success:function (result){
+                if (result.mark==1){
                     alert("注册成功！！！");
-                    window.location.href="http://localhost:8080/exam_qb_ssm/html/login.html";
+                    window.location.href="login.html";
                 }else {
                     alert("注册失败！！！");
                 }

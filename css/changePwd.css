@@ -109,6 +109,7 @@
 	float: left;
 }
 .login .content .content-right .login-form div input{
+	text-indent: 1em;
 	width: 240px;
 	height: 35px;
 	line-height: 35px;

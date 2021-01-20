@@ -21,15 +21,15 @@
 						<h2>修改密码/LOGIN</h2>
 						<div class="identifire">
 							<span>账&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号：</span>
-							<input id="acc" type="text" />
+							<input id="acc" type="text" placeholder="请输入账号" onblur="validateAcc()"/>
 						</div>
 						<div class="password clearfix">
 							<span>输入密码：</span>
-							<input id="pwd" type="text" value="" />
+							<input id="pwd" type="password" placeholder="请输入新密码" onblur="validatePwd()"/>
 						</div>
 						<div class="phone clearfix">
 							<span>电话号码：</span>
-							<input id="phone" type="text" value="" />
+							<input id="phone" type="text" placeholder="请输入电话号" onblur="validatePhone()"/>
 							<em></em>
 						</div>
 						<div class="btn">
@@ -49,6 +49,37 @@
 			$('.login').css('height',height);
 		})
 
+		//格式验证
+		//账号
+		function validateAcc(){
+			var len=$("#acc").val().length;
+			if(len<=18&&len>=6){
+				$("#acc").css("border","1px solid green");
+			}else{
+				$("#acc").css("border","1px solid red");
+			}
+		}
+		//密码
+		function validatePwd(){
+			var len=$("#pwd").val().length;
+			if(len<=18&&len>=6){
+				$("#pwd").css("border","1px solid green");
+			}else{
+				$("#pwd").css("border","1px solid red");
+			}
+		}
+		//电话号
+		function validatePhone(){
+			var len=$("#phone").val().length;
+			for(var i=0;i<len;i++) {
+				if (len === 11 && $("#phone").val().charCodeAt(i) >= 48 && $("#phone").val().charCodeAt(i) <= 57) {
+					$("#phone").css("border", "1px solid green");
+				} else {
+					$("#phone").css("border", "1px solid red");
+				}
+			}
+		}
+
 		//修改密码信息提交
 		function changePwd(){
 			var jsondata={};
@@ -61,10 +92,10 @@
 				data:JSON.stringify(jsondata),
 				contentType:"application/json",
 				dataType:"json",
-				success:function (mark){
-					if (mark==="true"){
+				success:function (result){
+					if (result.mark==="true"){
 						alert("修改成功！！！");
-						window.location.href="http://localhost:8080/exam_qb_ssm/html/login.html"
+						window.location.href="login.html"
 					}else {
 						alert("修改失败！！！");
 					}
