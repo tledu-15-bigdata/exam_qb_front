@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录界面</title>
+		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+
+	</head>
+	<body>
+		<div class="login">
+			<div class="content clearfix">
+				<div class="content-left">
+					<div class="logo">
+						<img src="../images/tl_logo.jpg" alt=""/>
+						<p>天亮EDU在线考试系统</p>
+					</div>
+				</div>
+				<div class="shu"></div>
+				<div class="content-right">
+					<div class="login-form">
+						<h2>用户登录/LOGIN</h2>
+						<div class="identifire">
+							<span>身　份：</span>
+							<select>
+								<option value="用户" selected="selected">用户</option>
+								<option value="管理员">管理员</option>
+							</select>
+						</div>
+						<div class="account clearfix">
+							<span>账　号：</span>
+							<input type="text" value="" />
+						</div>
+						<div class="password clearfix">
+							<span>密　码：</span>
+							<input type="text" value="" />
+						</div>
+						<div class="btn">
+							<span id="login"><a onclick="login()">登录</a></span>
+							<span class="forget"><a href="changePwd.html">忘记密码</a></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</body>
+	<script src="../js/jquery-3.5.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//页面高度设置
+		$(document).ready(function () {
+			var height=$(document).height();
+			$('.login').css('height',height);
+		})
+
+		//登录
+		function login(){
+			var identity=$("select").val();
+			if (identity==="用户"){
+				var url="http://localhost:8080/exam_qb_ssm/userLogin";
+			}else if(identity==="管理员"){
+				var url="http://localhost:8080/exam_qb_ssm/managerLogin";
+			}
+			var jsondata={};
+			jsondata.acc=$("input:first").val();
+			jsondata.pwd=$("input:last").val();
+			$.ajax({
+				url:url,
+				data:JSON.stringify(jsondata),
+				type:"post",
+				contentType:"application/json",
+				dataType:"json",
+				success:function (mark){
+					if (mark==="true"){
+						window.location.href="http://localhost:8080/exam_qb_ssm/html/homepage.html"
+					}else {
+						alert("账号或密码错误！！！")
+					}
+				}
+
+			})
+		}
+
+
+
+	</script>
+</html>

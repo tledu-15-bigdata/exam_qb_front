@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>注册</title>
+<title>注册界面</title>
 <link type="text/css" rel="stylesheet" href="../css/register.css" />
 
 </head>
@@ -20,31 +20,25 @@
             <img src="../images/user.png" />
             <div class="pp">注册</div>
         </div>
-<!--        <div class="sub"><p>已经注册？<a href="index.html"><span class="blue">请登录</span></a></p></div>-->
-<!--        <div class="txt txt0">-->
-<!--            <span style="float:left">短信验证码:</span>-->
-<!--            <input name="" type="text" placeholder="请输入短信验证码" class="txtyzmdx"/>-->
-<!--            <a href="javascript:;" class="tipTimer" onClick="settime(this)">获取到短信验证码</a>-->
-<!--        </div>-->
         <div class="txt txt0">
             <span style="letter-spacing:16px;">账号:</span>
-            <input name="" type="text" class="txtphone" placeholder="请输入账号"/>
+            <input id="acc" name="" type="text" class="txtphone" placeholder="请输入账号"/>
         </div>
         <div class="txt txt0">
             <span style="letter-spacing:4px;">登录密码:</span>
-            <input name="" type="text" class="txtphone" placeholder="请输入密码"/>
+            <input id="pwd" name="" type="text" class="txtphone" placeholder="请输入密码"/>
         </div>
         <div class="txt txt0">
             <span style="letter-spacing:4px;">电话号码:</span>
-            <input name="" type="text" class="txtphone" placeholder="请输入手机号码"/>
+            <input id="phone" name="" type="text" class="txtphone" placeholder="请输入手机号码"/>
         </div>
          <div class="txt txt0">
              <span style="letter-spacing:4px;">电子邮箱:</span>
-             <input name="" type="text" class="txtphone" placeholder="请输入电子邮箱"/>
+             <input id="email" name="" type="text" class="txtphone" placeholder="请输入电子邮箱"/>
          </div>
         <div class="txt txt0">
-<!--            <a href="zhuce.html"><span style=" float:left;color:#31acfb"><返回上一步</span></a>-->
-            <a href="zhuceSucc.html"><div class="zhucebtn">确认注册</div></a>
+<!--            <a href="zhuce.html"><span      style=" float:left;color:#31acfb"><返回上一步</span></a>-->
+            <button class="zhucebtn" onclick="register()">确认注册</button>
         </div>
      </div>
   </div>
@@ -59,9 +53,34 @@
 </body>
 <script src="../js/jquery-3.5.1.js"></script>
 <script>
+    //页面高度设置
     $(document).ready(function () {
         var height=$(document).height();
         $('.main').css('height',height);
     })
+
+    //发送注册信息
+    function register(){
+        var jsondata={};
+        jsondata.acc=$("#acc").val();
+        jsondata.pwd=$("#pwd").val();
+        jsondata.phone=$("#phone").val();
+        jsondata.email=$("#email").val();
+        $.ajax({
+            url:"http://localhost:8080/exam_qb_ssm/userRegister",
+            data:JSON.stringify(jsondata),
+            type:"post",
+            contentType:"application/json",
+            dataType:"json",
+            success:function (mark){
+                if (mark==1){
+                    alert("注册成功！！！");
+                    window.location.href="http://localhost:8080/exam_qb_ssm/html/login.html";
+                }else {
+                    alert("注册失败！！！");
+                }
+            }
+        });
+    }
 </script>
 </html>

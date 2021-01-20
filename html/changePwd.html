@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>修改密码页面</title>
+		<link rel="stylesheet" type="text/css" href="../css/changePwd.css"/>
+
+	</head>
+	<body>
+		<div class="login">
+			<div class="content clearfix">
+				<div class="content-left">
+					<div class="logo">
+						<img src="../images/tl_logo.jpg" alt=""/>
+						<p>天亮EDU在线考试系统</p>
+					</div>
+				</div>
+				<div class="shu"></div>
+				<div class="content-right">
+					<div class="login-form">
+						<h2>修改密码/LOGIN</h2>
+						<div class="identifire">
+							<span>账&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号：</span>
+							<input id="acc" type="text" />
+						</div>
+						<div class="password clearfix">
+							<span>输入密码：</span>
+							<input id="pwd" type="text" value="" />
+						</div>
+						<div class="phone clearfix">
+							<span>电话号码：</span>
+							<input id="phone" type="text" value="" />
+							<em></em>
+						</div>
+						<div class="btn">
+							<span><a onclick="changePwd()">提交</a></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script src="../js/jquery-3.5.1.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		//页面高度设置
+		$(document).ready(function () {
+			var height=$(document).height();
+			$('.login').css('height',height);
+		})
+
+		//修改密码信息提交
+		function changePwd(){
+			var jsondata={};
+			jsondata.acc=$("#acc").val();
+			jsondata.pwd=$("#pwd").val();
+			jsondata.phone=$("#phone").val();
+			$.ajax({
+				url:"http://localhost:8080/exam_qb_ssm/changePwd",
+				type:"post",
+				data:JSON.stringify(jsondata),
+				contentType:"application/json",
+				dataType:"json",
+				success:function (mark){
+					if (mark==="true"){
+						alert("修改成功！！！");
+						window.location.href="http://localhost:8080/exam_qb_ssm/html/login.html"
+					}else {
+						alert("修改失败！！！");
+					}
+				}
+			})
+		}
+
+
+
+
+
+	</script>
+</html>
