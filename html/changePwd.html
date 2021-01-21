@@ -51,6 +51,8 @@
 
 		//修改密码信息提交
 		function changePwd(){
+
+			if ($("#acc").val().length<=10 && $("#acc").val().length>=0)
 			var jsondata={};
 			jsondata.acc=$("#acc").val();
 			jsondata.pwd=$("#pwd").val();
@@ -61,10 +63,10 @@
 				data:JSON.stringify(jsondata),
 				contentType:"application/json",
 				dataType:"json",
-				success:function (mark){
-					if (mark==="true"){
+				success:function (result){
+					if (result.mark==="true"){
 						alert("修改成功！！！");
-						window.location.href="http://localhost:8080/exam_qb_ssm/html/login.html"
+						window.location.href="login.html"
 					}else {
 						alert("修改失败！！！");
 					}

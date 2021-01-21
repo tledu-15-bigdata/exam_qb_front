@@ -64,15 +64,18 @@
 			var jsondata={};
 			jsondata.acc=$("input:first").val();
 			jsondata.pwd=$("input:last").val();
+
 			$.ajax({
 				url:url,
 				data:JSON.stringify(jsondata),
 				type:"post",
 				contentType:"application/json",
 				dataType:"json",
-				success:function (mark){
-					if (mark==="true"){
-						window.location.href="http://localhost:8080/exam_qb_ssm/html/homepage.html"
+				success:function (result){
+					console.log(result)
+					if (result.mark==="true"){
+						alert("登录成功！！！")
+						window.location.href="homepage.html"
 					}else {
 						alert("账号或密码错误！！！")
 					}

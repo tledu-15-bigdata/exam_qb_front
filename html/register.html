@@ -72,10 +72,11 @@
             type:"post",
             contentType:"application/json",
             dataType:"json",
-            success:function (mark){
-                if (mark==1){
+            success:function (result){
+                console.log(result)
+                if (result.mark==1){
                     alert("注册成功！！！");
-                    window.location.href="http://localhost:8080/exam_qb_ssm/html/login.html";
+                    window.location.href="login.html";
                 }else {
                     alert("注册失败！！！");
                 }
