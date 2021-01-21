@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分类管理</title>
+    <style>
+        #classifyBox {
+            /*width: 100%;*/
+            margin: 0px;
+            background-color: white;
+            height: 100vh;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        .classify-ul {
+            list-style: none;
+            margin-left: 20px;
+            /*padding-inline-start: 0px;*/
+
+        }
+
+        .inner-box > p {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            font-weight: bold;
+        }
+
+        .li-style {
+            margin-left: 20px;
+            list-style: none;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .inner-box {
+            width: 300px;
+            margin: 100px auto;
+        }
+
+        #classify-btnDiv {
+            position: relative;
+            left: 100px;
+            top: 90px;
+        }
+
+        #classify-btnDiv > button {
+            outline: none;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            width: 100px;
+            height: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 5px;
+            /*line-height: 40px;*/
+        }
+
+        #classify-btnDiv > button:hover {
+            background-color: #dcd8d8;
+        }
+
+        .classify-input {
+            border-radius: 3px;
+            outline: none;
+            border: 1px solid #bbbbbb;
+            height: 25px;
+            line-height: 25px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div id="classifyBox">
+    <!--基础信息-->
+<!--    <div class="BasicInformation">-->
+<!--        <div class="title">-->
+<!--            分类管理-->
+<!--        </div>-->
+<!--    </div>-->
+
+        <div id="classify-btnDiv">
+            <button id="addClassify">添加分类</button>
+            <input class="classify-input" type="text" placeholder="请输入添加分类的名称"/>
+            <br/>
+            <button id="deleteClassify">删除分类</button>
+            <input class="classify-input" type="text" placeholder="请输入删除分类的名称"/>
+        </div>
+
+        <div class="inner-box">
+            <p>全部 >></p>
+            <ul class="classify-ul">
+                <!--                <li>111</li>-->
+                <!--                <li>222</li>-->
+            </ul>
+        </div>
+
+
+</div>
+
+</body>
+<script src="js/jquery-3.5.1.js"></script>
+<script src="../../js/public.js"></script>
+<script>
+    $("#deleteClassify").click(function (){
+        let jsondata = {};
+        jsondata.c_name=$(".classify-input").eq(1).val();
+        console.log(jsondata);
+        $.ajax({
+            url:BASIC_URL+"deleteClassify",
+            type:"post",
+            data:JSON.stringify(jsondata),
+            contentType:"application/json",
+            dataType:"json",
+            success:function (result){
+                let index=parent.layer.getFrameIndex(window.name);
+                console.log(result);
+                if (result.mark==1){
+                    // alert("删除成功！")
+                    //msg 消息框
+                    parent.layer.msg("删除成功！")
+                    let text=$(".classify-input").eq(1).val();
+                    let allLi=$("li");
+                    for (let i=0;i<allLi.length;i++){
+                        // console.log(allLi[i].text())
+                        // console.log(text)
+                        if (allLi.eq(i).text()==text){
+                            allLi[i].remove();
+                        }
+                    }
+                    $(".classify-input").eq(1).val("")
+                }else {
+                    parent.layer.msg("删除失败！")
+                    // alert("删除失败！")
+                    $(".classify-input").eq(1).val("")
+                }
+            }
+
+        });
+
+    });
+
+    $("#addClassify").click(function () {
+        let jsondata = {};
+        jsondata.c_name = $(".classify-input").eq(0).val();
+        console.log(jsondata);
+        $.ajax({
+            url: BASIC_URL+"addClassify",
+            type: "post",
+            data: JSON.stringify(jsondata),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                let index=parent.layer.getFrameIndex(window.name);
+                console.log(result);
+                if (result.mark ==1) {
+                    parent.layer.msg("添加成功！")
+                    // alert("添加成功！ ");
+                    let ultag = $(".inner-box").eq(0);
+                    let newLi = $("<li></li>").text($(".classify-input").eq(0).val());
+                    newLi.attr("class", "li-style");
+                    ultag.append(newLi);
+                    $(".classify-input").eq(0).val("")
+                } else {
+                    parent.layer.msg("添加失败！类别重复或未输入")
+                    // alert("添加失败！类别重复或未输入");
+                    $(".classify-input").eq(0).val("")
+                }
+
+
+            }
+
+        });
+
+    });
+
+    $(function () {
+        // let jsondata = {};
+        // jsondata.statusOperate = "classifyInfo";
+        // console.log(jsondata)
+        $.ajax({
+            url: BASIC_URL+"getClassifyInfo",
+            type: "post",
+            // data: JSON.stringify(jsondata),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                let ultag = $(".inner-box").eq(0);
+                let resultList=result.classifyList;
+                for (let i = 0; i < resultList.length; i++) {
+                    let newLi = $("<li></li>").text(resultList[i].c_name);
+                    newLi.attr("class", "li-style");
+                    ultag.append(newLi);
+
+                }
+            }
+        });
+    });
+
+
+</script>
+</html>
