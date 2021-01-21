@@ -120,6 +120,7 @@
 	float: left;
 }
 .login .content .content-right .login-form div input{
+	text-indent: 1em;
 	width: 240px;
 	height: 35px;
 	line-height: 35px;
@@ -142,14 +143,15 @@
 	cursor: pointer;
 }
 .login .content .content-right .login-form .btn{
-	width: 240px;
+	width: 350px;
 	height: 30px;
 	margin-top: 29px;
-	margin-left: 80px;
+	/*margin-left: 80px;*/
+	/*padding-left: 10px;*/
 }
 .login .content .content-right .login-form .btn span{
 	display: block;
-	width: 110px;
+	width: 100px;
 	height: 100%;
 	line-height: 30px;
 	text-align: center;
@@ -157,6 +159,8 @@
 	font-size: 18px;
 	cursor: pointer;
 	float: left;
+	/*margin-left: 5px;*/
+	/*padding-left: 20px;*/
 	/*behavior: url(js/pie.htc);*/
 	-moz-border-radius:5px;
     -webkit-border-radius:5px;
@@ -166,6 +170,10 @@
 	font-size: 18px;
 	color: #fff;
 }
+.login .content .content-right .login-form .btn span#register{
+	margin-left: 20px;
+}
+
 .login .content .content-right .login-form .btn span.forget{
 	margin-left: 20px;
 }

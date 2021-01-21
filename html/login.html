@@ -28,14 +28,15 @@
 						</div>
 						<div class="account clearfix">
 							<span>账　号：</span>
-							<input type="text" value="" />
+							<input type="text" value="" placeholder="请输入账号" onblur="validateAcc()"/>
 						</div>
 						<div class="password clearfix">
 							<span>密　码：</span>
-							<input type="text" value="" />
+							<input type="password" value="" placeholder="请输入密码" onblur="validatePwd()"/>
 						</div>
 						<div class="btn">
 							<span id="login"><a onclick="login()">登录</a></span>
+							<span id="register"><a href="register.html">注册</a></span>
 							<span class="forget"><a href="changePwd.html">忘记密码</a></span>
 						</div>
 					</div>
@@ -53,6 +54,26 @@
 			$('.login').css('height',height);
 		})
 
+		//格式验证
+		//账号
+		function validateAcc(){
+			var len=$("input:first").val().length;
+			if(len<=18&&len>=6){
+				$("input:first").css("border","1px solid green");
+			}else{
+				$("input:first").css("border","1px solid red");
+			}
+		}
+		//密码
+		function validatePwd(){
+			var len=$("input:last").val().length;
+			if(len<=18&&len>=6){
+				$("input:last").css("border","1px solid green");
+			}else{
+				$("input:last").css("border","1px solid red");
+			}
+		}
+
 		//登录
 		function login(){
 			var identity=$("select").val();
@@ -64,18 +85,15 @@
 			var jsondata={};
 			jsondata.acc=$("input:first").val();
 			jsondata.pwd=$("input:last").val();
-
 			$.ajax({
 				url:url,
 				data:JSON.stringify(jsondata),
 				type:"post",
 				contentType:"application/json",
 				dataType:"json",
-				success:function (result){
-					console.log(result)
-					if (result.mark==="true"){
-						alert("登录成功！！！")
-						window.location.href="homepage.html"
+				success:function (mark){
+					if (mark==="true"){
+						window.location.href="http://localhost:8080/exam_qb_ssm/html/homepage.html"
 					}else {
 						alert("账号或密码错误！！！")
 					}
