@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>试题详情</title>
+    <style>
+        #classifyBox {
+            /*width: 100%;*/
+            margin: 0px;
+            background-color: white;
+            /*height: 100vh;*/
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        #top-title {
+            font-weight: bold;
+            text-indent: 2em;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        #add-table-box {
+            /*border: 1px solid black;*/
+            width: 600px;
+            height: 100%;
+            margin: auto;
+        }
+
+        .add-table .add-first-colum, .add-select {
+            text-align: center;
+        }
+
+        .add-first-colum {
+            width: 80px;
+
+        }
+
+        textarea {
+            outline: none;
+            border: 1px solid #bbbbbb;
+            border-radius: 3px;
+        }
+
+        .add-table tr {
+            vertical-align: top;
+            /*margin-bottom: 40px;*/
+        }
+
+        .add-select {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #bbbbbb;
+            cursor: pointer;
+
+            /*text-align: center;*/
+        }
+
+        #add-single-div {
+            float: left;
+            background-color: #dcd8d8;
+        }
+
+        #add-answer-div {
+            float: left;
+        }
+
+        .add-table p {
+            text-align: left;
+        }
+
+        #add-score-input {
+            border-radius: 3px;
+            outline: none;
+            border: 1px solid #bbbbbb;
+            height: 25px;
+            line-height: 25px;
+            font-size: 14px;
+        }
+
+        #select-classify {
+            width: 100px;
+            text-align: left;
+            outline: none;
+            border: 1px solid #bbbbbb;
+            border-radius: 3px;
+        }
+
+        #add-submit-btn {
+            border: 1px solid #bbbbbb;
+            /*cursor: pointer;*/
+            outline: none;
+            border-radius: 3px;
+            width: 130px;
+            height: 40px;
+            font-size: 14px;
+            color: white;
+            background-color: dodgerblue;
+        }
+
+        #add-submit-btn:hover {
+            background-color: #53a5ff;
+        }
+
+        #add-answer-area {
+            display: none;
+        }
+
+        #input-question-a {
+            width: 30px;
+        }
+
+        #input-question-b {
+            width: 30px;
+        }
+
+        #input-question-c {
+            width: 30px;
+        }
+
+        #input-question-d {
+            width: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="classifyBox">
+    <!--    <div id="top-title">增加试题</div>-->
+    <!--基础信息-->
+<!--    <div class="BasicInformation">-->
+<!--        <div class="title">-->
+<!--            增加试题-->
+<!--        </div>-->
+<!--    </div>-->
+    <div id="add-table-box">
+        <table class="add-table" cellspacing="10px">
+            <tr>
+                <td class="add-first-colum">题目类型</td>
+                <td>
+<!--                    <div id="add-single-div" class="add-select">单选题</div>-->
+<!--                    <div id="add-answer-div" class="add-select">简答题</div>-->
+                    <span id="test-type"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="add-first-colum">试题内容</td>
+                <td>
+<!--                    <textarea name="" id="add-title-textArea" cols="50" rows="4"></textarea>-->
+                    <span id="test-title"></span>
+                </td>
+            </tr>
+            <tr id="add-single-question">
+                <td class="add-first-colum"></td>
+                <td id="add-question-area">
+<!--                    <div>-->
+                        <p id="paper-test-a"></p>
+<!--                        <textarea name="" id="add-A-textArea" cols="50" rows="4"></textarea>-->
+<!--                    </div>-->
+<!--                    <div>-->
+                        <p id="paper-test-b"></p>
+<!--                        <textarea name="" id="add-B-textArea" cols="50" rows="4"></textarea>-->
+<!--                    </div>-->
+<!--                    <div>-->
+                        <p id="paper-test-c"></p>
+<!--                        <textarea name="" id="add-C-textArea" cols="50" rows="4"></textarea>-->
+<!--                    </div>-->
+<!--                    <div>-->
+                        <p id="paper-test-d"></p>
+<!--                        <textarea name="" id="add-D-textArea" cols="50" rows="4"></textarea>-->
+<!--                    </div>-->
+                </td>
+            </tr>
+            <tr>
+                <td class="add-first-colum">正确答案</td>
+                <td>
+                    <span id="answer-yes"></span>
+                </td>
+<!--                <td id="add-answer-input">-->
+<!--                    <input id="input-question-a" type="radio" name="answer-select" value="a"/>A-->
+<!--                    <input id="input-question-b" type="radio" name="answer-select" value="b"/>B-->
+<!--                    <input id="input-question-c" type="radio" name="answer-select" value="c"/>C-->
+<!--                    <input id="input-question-d" type="radio" name="answer-select" value="d"/>D-->
+<!--                </td>-->
+<!--                <td id="add-answer-area">-->
+<!--                    <textarea id='answer-area' cols='50' rows='4'></textarea>-->
+
+<!--                </td>-->
+            </tr>
+            <tr>
+                <td class="add-first-colum">试题分值</td>
+                <td>
+<!--                    <input type="text" id="add-score-input"/>-->
+                    <span id="answer-score-num"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="add-first-colum">试题分类</td>
+                <td>
+                    <span id="answer-classify-name"></span>
+                </td>
+            </tr>
+<!--            <tr>-->
+<!--                <td class="add-first-colum"></td>-->
+<!--                <td>-->
+<!--                    <button id="add-submit-btn">提交</button>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+        </table>
+
+    </div>
+</div>
+</body>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="../../js/public.js"></script>
+<script>
+    $(function (){
+        let JsonData={}
+        JsonData.aId=localStorage.getItem("id");
+        $.ajax({
+            url:BASIC_URL+"getAnswerById",
+            type:"post",
+            data:JSON.stringify(JsonData),
+            contentType:"application/json",
+            dataType:"json",
+            success:function (result){
+                console.log(result);
+                let aType=result.aType;
+                $("#test-type").text(aType);
+                $("#test-title").text(result.aTopic);
+
+                if (aType=="单选题"){
+                    $("#paper-test-a").text("A. "+result.aA)
+                    $("#paper-test-b").text("B. "+result.aB)
+                    $("#paper-test-c").text("C. "+result.aC)
+                    $("#paper-test-d").text("D. "+result.aD)
+                }else {
+                    $("#add-single-question").hide();
+                }
+
+                $("#answer-yes").text(result.aAnswer)
+                $("#answer-score-num").text(result.aScore)
+                $("#answer-classify-name").text(result.cName)
+            }
+        })
+
+    })
+
+
+</script>
+
+
+</html>

@@ -7,23 +7,30 @@
 		<script src="../../js/public.js"></script>
 		<script>
 			$(function (){
-				$.ajax({
-					url:BASIC_URL+"getUserInfo",
-					type:"post",
-					contentType:"application/json",
-					dataType:"json",
-					success:function (result){
-						console.log(result);
-						if (result.status==0){
-							window.location.href="../login.html";
-						}else {
-							localStorage.setItem("status",1);
-							localStorage.setItem("Info",result.Info);
-						}
-					}
-				})
-			})
+				// $.ajax({
+				// 	url:BASIC_URL+"getUserInfo",
+				// 	type:"post",
+				// 	data:"",
+				// 	contentType:"application/json",
+				// 	dataType:"json",
+				// 	success:function (result){
+				// 		console.log(result);
+				// 		if (result.status==0){
+				// 			window.location.href="../login.html";
+				// 		}else {
+				// 			localStorage.setItem("status",1);
+				// 			localStorage.setItem("Info",result.Info);
+				// 		}
+				// 	}
+				// })
+				let status = localStorage.getItem("status");
+				if (status!="1"){
+					window.location.href="../login.html";
+				}else {
+					//右上角显示用户名和头像
+				}
 
+			})
 
 		</script>
 		<style type="text/css">
@@ -44,4 +51,5 @@
 			<!-- <frame noresize="noresize" scrolling="no" name="main"  src="首页.html"/> -->
 		</frameset>
 	</frameset>
+
 </html>

@@ -91,10 +91,19 @@
 				type:"post",
 				contentType:"application/json",
 				dataType:"json",
-				success:function (mark){
-					if (mark==="true"){
+				// xhrFields:{
+				// 	withCredentials:true,
+				// },
+				// crossDomain:true,
+				success:function (result){
+					console.log(result)
+					if (result!=null){
+						localStorage.setItem("status","1");
+						localStorage.setItem("Info",JSON.stringify(result));
+						// console.log("localstorage"+localStorage.getItem("Info"))
 						window.location.href="index/MainIndex.html"
 					}else {
+						localStorage.setItem("status","0");
 						alert("账号或密码错误！！！")
 					}
 				}

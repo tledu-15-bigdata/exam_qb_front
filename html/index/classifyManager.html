@@ -101,12 +101,13 @@
 </div>
 
 </body>
-<script src="js/jquery-3.5.1.js"></script>
+<script src="js/jquery-3.5.1.min.js"></script>
 <script src="../../js/public.js"></script>
 <script>
     $("#deleteClassify").click(function (){
         let jsondata = {};
-        jsondata.c_name=$(".classify-input").eq(1).val();
+        jsondata.cName=$(".classify-input").eq(1).val();
+        jsondata.uId=JSON.parse(localStorage.getItem("Info")).uId;
         console.log(jsondata);
         $.ajax({
             url:BASIC_URL+"deleteClassify",
@@ -144,7 +145,9 @@
 
     $("#addClassify").click(function () {
         let jsondata = {};
-        jsondata.c_name = $(".classify-input").eq(0).val();
+        jsondata.cName = $(".classify-input").eq(0).val();
+        jsondata.uId=JSON.parse(localStorage.getItem("Info")).uId;
+
         console.log(jsondata);
         $.ajax({
             url: BASIC_URL+"addClassify",
@@ -177,13 +180,15 @@
     });
 
     $(function () {
-        // let jsondata = {};
+        console.log(localStorage.getItem("status"))
+        let jsondata = {};
         // jsondata.statusOperate = "classifyInfo";
-        // console.log(jsondata)
+        jsondata.uId=JSON.parse(localStorage.getItem("Info")).uId;
+        console.log(jsondata)
         $.ajax({
             url: BASIC_URL+"getClassifyInfo",
             type: "post",
-            // data: JSON.stringify(jsondata),
+            data: JSON.stringify(jsondata),
             contentType: "application/json",
             dataType: "json",
             success: function (result) {
@@ -191,7 +196,7 @@
                 let ultag = $(".inner-box").eq(0);
                 let resultList=result.classifyList;
                 for (let i = 0; i < resultList.length; i++) {
-                    let newLi = $("<li></li>").text(resultList[i].c_name);
+                    let newLi = $("<li></li>").text(resultList[i].cName);
                     newLi.attr("class", "li-style");
                     ultag.append(newLi);
 

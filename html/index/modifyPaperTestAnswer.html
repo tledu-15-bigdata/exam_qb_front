@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加试题</title>
-    <script src="../../js/public.js"></script>
+    <title>简答题修改</title>
     <style>
         #classifyBox {
             /*width: 100%;*/
@@ -64,6 +63,7 @@
         }
 
         #add-answer-div {
+            background-color: #dcd8d8;
             float: left;
         }
 
@@ -105,7 +105,7 @@
         }
 
         #add-answer-area {
-            display: none;
+            /*display: none;*/
         }
 
         #input-question-a {
@@ -140,7 +140,7 @@
             <tr>
                 <td class="add-first-colum">题目类型</td>
                 <td>
-                    <div id="add-single-div" class="add-select">单选题</div>
+<!--                    <div id="add-single-div" class="add-select">单选题</div>-->
                     <div id="add-answer-div" class="add-select">简答题</div>
                 </td>
             </tr>
@@ -150,35 +150,35 @@
                     <textarea name="" id="add-title-textArea" cols="50" rows="4"></textarea>
                 </td>
             </tr>
-            <tr id="add-single-question">
-                <td class="add-first-colum"></td>
-                <td id="add-question-area">
-                    <div>
-                        <p>A.</p>
-                        <textarea name="" id="add-A-textArea" cols="50" rows="4"></textarea>
-                    </div>
-                    <div>
-                        <p>B.</p>
-                        <textarea name="" id="add-B-textArea" cols="50" rows="4"></textarea>
-                    </div>
-                    <div>
-                        <p>C.</p>
-                        <textarea name="" id="add-C-textArea" cols="50" rows="4"></textarea>
-                    </div>
-                    <div>
-                        <p>D.</p>
-                        <textarea name="" id="add-D-textArea" cols="50" rows="4"></textarea>
-                    </div>
-                </td>
-            </tr>
+<!--            <tr id="add-single-question">-->
+<!--                <td class="add-first-colum"></td>-->
+<!--                <td id="add-question-area">-->
+<!--                    <div>-->
+<!--                        <p>A.</p>-->
+<!--                        <textarea name="" id="add-A-textArea" cols="50" rows="4"></textarea>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <p>B.</p>-->
+<!--                        <textarea name="" id="add-B-textArea" cols="50" rows="4"></textarea>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <p>C.</p>-->
+<!--                        <textarea name="" id="add-C-textArea" cols="50" rows="4"></textarea>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <p>D.</p>-->
+<!--                        <textarea name="" id="add-D-textArea" cols="50" rows="4"></textarea>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--            </tr>-->
             <tr>
                 <td class="add-first-colum">正确答案</td>
-                <td id="add-answer-input">
-                    <input id="input-question-a" type="radio" name="answer-select" value="a"/>A
-                    <input id="input-question-b" type="radio" name="answer-select" value="b"/>B
-                    <input id="input-question-c" type="radio" name="answer-select" value="c"/>C
-                    <input id="input-question-d" type="radio" name="answer-select" value="d"/>D
-                </td>
+<!--                <td id="add-answer-input">-->
+<!--                    <input id="input-question-a" type="radio" name="answer-select" value="a"/>A-->
+<!--                    <input id="input-question-b" type="radio" name="answer-select" value="b"/>B-->
+<!--                    <input id="input-question-c" type="radio" name="answer-select" value="c"/>C-->
+<!--                    <input id="input-question-d" type="radio" name="answer-select" value="d"/>D-->
+<!--                </td>-->
                 <td id="add-answer-area">
                     <textarea id='answer-area' cols='50' rows='4'></textarea>
 
@@ -217,35 +217,12 @@
 </div>
 </body>
 <script src="js/jquery-3.5.1.min.js"></script>
-
+<script src="../../js/public.js"></script>
 <script>
-    var aType = "单选题";
-    $("#add-single-div").click(function () {
-        aType = "单选题";
-        $("#add-single-div").css("background-color", "#dcd8d8");
-        $("#add-answer-div").css("background-color", "white");
-        console.log(aType);
-        $("#add-single-question").show();
-        $("#add-answer-input").show();
-        $("#add-answer-area").hide()
-    });
-
-
-    $("#add-answer-div").click(function () {
-        aType = "简答题";
-        $("#add-single-div").css("background-color", "white");
-        $("#add-answer-div").css("background-color", "#dcd8d8");
-        console.log(aType);
-        $("#add-single-question").hide();
-        $("#add-answer-input").hide();
-        $("#add-answer-area").show()
-    });
     $(function () {
         let selectTay = $("#select-classify");
         let jsondata = {};
         jsondata.uId=JSON.parse(localStorage.getItem("Info")).uId;
-        console.log(jsondata)
-
         // jsondata.statusOperate="addSelectClassify";
         $.ajax({
             url: BASIC_URL + "getClassifyInfo",
@@ -264,37 +241,111 @@
             }
         });
     });
+
+
+    $(function (){
+        let a_id=localStorage.getItem("id");
+        let jsonData = {};
+        jsonData.aId=a_id;
+        $.ajax({
+            url:BASIC_URL+"getAnswerById",
+            type:"post",
+            data:JSON.stringify(jsonData),
+            contentType:"application/json",
+            dataType:"json",
+            success:function (result){
+                console.log(result)
+                $("#add-title-textArea").val(result.aTopic);
+                // $("#add-A-textArea").val(result.a_a);
+                // $("#add-B-textArea").val(result.a_b);
+                // $("#add-C-textArea").val(result.a_c);
+                // $("#add-D-textArea").val(result.a_d);
+
+
+
+                // let radio = $("input:radio");
+                // for (let i = 0; i < radio.length; i++) {
+                //     if (radio.eq(i).val()==result.a_answer) {
+                //         // radio.eq(i).prop("checked")
+                //         radio.get(i).checked=true;
+                //         // jsondata.a_answer = radio.eq(i).val();
+                //     }
+                // }
+
+
+                $("#answer-area").val(result.aAnswer);
+                $("#add-score-input").val(result.aScore);
+
+                let test=result.cName;
+                let selectOp = $("#select-classify option");
+                for (let i=0;i<selectOp.length;i++){
+                    // console.log(selectOp.eq(i).val())
+                    if (selectOp.eq(i).val()==test){
+                        selectOp.get(i).selected=true;
+                    }
+                }
+
+            }
+        })
+    })
+</script>
+
+<script>
+    var aType = "简答题";
+    // $("#add-single-div").click(function () {
+    //     type = "单选题";
+    //     $("#add-single-div").css("background-color", "#dcd8d8");
+    //     $("#add-answer-div").css("background-color", "white");
+    //     console.log(type);
+    //     $("#add-single-question").show();
+    //     $("#add-answer-input").show();
+    //     $("#add-answer-area").hide()
+    // });
+    //
+    //
+    // $("#add-answer-div").click(function () {
+    //     type = "简答题";
+    //     $("#add-single-div").css("background-color", "white");
+    //     $("#add-answer-div").css("background-color", "#dcd8d8");
+    //     console.log(type);
+    //     $("#add-single-question").hide();
+    //     $("#add-answer-input").hide();
+    //     $("#add-answer-area").show()
+    // });
+
     $("#add-submit-btn").click(function () {
 
         let jsondata = {};
         // jsondata.statusOperate="addSingleQuestion";
         // let data={};
+        jsondata.aId=localStorage.getItem("id");
+        jsondata.uId=JSON.parse(localStorage.getItem("Info")).uId;
         jsondata.aType = aType;
         jsondata.aTopic = $("#add-title-textArea").val();
-        jsondata.aA = $("#add-A-textArea").val();
-        jsondata.aB = $("#add-B-textArea").val();
-        jsondata.aC = $("#add-C-textArea").val();
-        jsondata.aD = $("#add-D-textArea").val();
+        // jsondata.a_a = $("#add-A-textArea").val();
+        // jsondata.a_b = $("#add-B-textArea").val();
+        // jsondata.a_c = $("#add-C-textArea").val();
+        // jsondata.a_d = $("#add-D-textArea").val();
 
-        if (aType == "单选题") {
-            let radio = $("input:radio");
-            for (let i = 0; i < radio.length; i++) {
-                if (radio.eq(i).prop("checked")) {
-                    jsondata.aAnswer = radio.eq(i).val();
-                }
-            }
-        } else {
+        // if (type == "单选题") {
+        //     let radio = $("input:radio");
+        //     for (let i = 0; i < radio.length; i++) {
+        //         if (radio.eq(i).prop("checked")) {
+        //             jsondata.a_answer = radio.eq(i).val();
+        //         }
+        //     }
+        // } else {
             jsondata.aAnswer = $("#answer-area").val();
-        }
+        // }
 
         jsondata.aScore = $("#add-score-input").val();
         jsondata.cName = $("option:selected").eq(0).text();
-        jsondata.uId=JSON.parse(localStorage.getItem("Info")).uId;
+
 
 
         console.log(jsondata);
         $.ajax({
-            url: BASIC_URL + "addAnswer",
+            url: BASIC_URL + "modifyAnswer",
             type: "post",
             data: JSON.stringify(jsondata),
             contentType: "application/json",
@@ -309,12 +360,12 @@
                     parent.layer.close(index);
                     parent.reLoad();
                     //msg 消息框
-                    parent.layer.msg("题目添加成功！")
+                    parent.layer.msg("商品修改成功！")
                     // $("#classifyBox").load("questionBank.html");
                 } else {
                     // alert("添加失败!");
                     parent.layer.close(index);
-                    parent.layer.msg("题目添加失败！！！")
+                    parent.layer.msg("商品修改失败 请重试！！")
                 }
             }
         });
