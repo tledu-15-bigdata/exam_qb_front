@@ -37,6 +37,7 @@ function load(){
                 offset : params.offset,
                 pageSize : params.limit
             };
+            console.log(temp);
             return JSON.stringify(temp);
         },
         columns:[
@@ -53,9 +54,9 @@ function load(){
                 align:"center",
                 halign:"center",
                 formatter:function (value,row,index){
-                    if (row.aType==="单选题"){
+                    if (row.atType==="单选题"){
                         return "<p>["+row.atType+"]"+row.atTopic+"("+row.atScore+"分)</p><p style='color: gray'>"+row.cName+"</p><p class='singel'>A、"+row.atA+"</p><p class='singel'>B、"+row.atB+"</p><p class='singel'>C、"+row.atC+"</p><p class='singel'>D、"+row.atD+"</p><p>正确答案："+row.atAnswer+"</p>"
-                    }else if (row.aType==="简答题"){
+                    }else if (row.atType==="简答题"){
                         return "<p>["+row.atType+"]"+row.atTopic+"("+row.atScore+"分)</p><p style='color: gray'>"+row.cName+"</p><p>正确答案："+row.atAnswer+"</p>"
                     }
                 }

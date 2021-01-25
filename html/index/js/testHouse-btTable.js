@@ -29,7 +29,7 @@ function load(){
         striped: true, //隔行换色
         pageNumber:1, //初始化加载第一页
         pagination:true, //是否分页
-        pageSize:2,   //单页记录数
+        pageSize:10,   //单页记录数
         queryParams:function (params){
             let temp = {
                 uId : JSON.parse(localStorage.getItem("Info")).uId,
@@ -45,7 +45,7 @@ function load(){
                 align:"center",
                 halign:"center",
                 formatter:function (value,row,index){
-                    return "<input type='checkbox' class='deleteTests' value='"+row.atId+"'/>"+(index+1);
+                    return "<input type='checkbox' class='deleteTests' value='"+row.tId+"'/>"+(index+1);
                 }
             },
             {
@@ -95,7 +95,7 @@ function load(){
                 title: "创建时间",
                 align:"center",
                 halign:"center",
-                field: "tCreatTime"
+                field: "tCreateTime"
             },
             {
                 title: "管理",
@@ -104,9 +104,8 @@ function load(){
                 width:'50px',//设置列宽
                 formatter:function(value,row,index){
                     //如果将来 涉及到字符串数据传入参数  需要设置单引号
-                    localStorage.setItem("tId",row.tId);
                     let setupTest='<a onclick="setupTest(\''+row.tId+'\')">考试设置</a>'
-                    let setupAnswer='<a onclick="setupAnswer()">试题设置</a>'
+                    let setupAnswer='<a onclick="setupAnswer(\''+row.tId+'\')">试题设置</a>'
                     let deleteTest='<a onclick="deleteTest(\''+row.tId+'\')">删除试卷</a>'
                     return setupTest+" "+setupAnswer+" "+deleteTest;
                 }
@@ -135,7 +134,8 @@ function setupTest(){
     });
 }
 //试题设置
-function setupAnswer(){
+function setupAnswer(tId){
+    localStorage.setItem("tId",tId);
     layer.open({
         type: 2,//可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。
         title: '试题设置',
@@ -162,6 +162,7 @@ function deleteTest(tId){
         success:function (result){
             if (result.mark){
                 alert("删除成功！！！");
+                reLoad();
             }else {
                 alert("删除失败！！！");
             }

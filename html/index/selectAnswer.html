@@ -45,6 +45,7 @@
         let jsonData={};
         let answerList=$(".addTestAnswer");
         let array=new Array;
+        let index=parent.layer.getFrameIndex(window.name);
         for(let i=0;i<answerList.length;i++){
             if(answerList.eq(i).prop("checked")){
                 let data={}
@@ -54,6 +55,7 @@
             }
         }
         jsonData.addTestAnswer=array;
+
         $.ajax({
             url:url,
             type:"post",
@@ -63,6 +65,8 @@
             success:function (result){
                 if (result.mark){
                     alert("添加成功！！！");
+                    parent.layer.close(index);
+                    parent.reLoad();
                 }else{
                     alert("添加失败！！！");
                 }
