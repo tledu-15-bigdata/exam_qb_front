@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/layer/default/layer.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-table/bootstrap-table.min.css">
+    <style>
+        button{
+            width: 130px;
+            height: 40px;
+            background-color: dodgerblue;
+            border-radius: 3px;
+            text-align: center;
+            color: white;
+            border: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<button onclick="addTestAnswer()">添加</button>
+<table id="selectAnswer-table"></table>
+
+</body>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/layer/layer.js"></script>
+<script src="../../js/public.js"></script>
+<script src="../../js/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/selectAnswer-btTable.js"></script>
+<script>
+    function selectAll(){
+        if($(".selectAll").prop("checked")){
+            $(".addTestAnswer").prop("checked",true)
+        }else{
+            $(".addTestAnswer").prop("checked",false)
+        }
+    }
+
+    //向试卷里添加试题
+    function addTestAnswer(){
+        let url=BASIC_URL+"addTestAnswer";
+        let jsonData={};
+        let answerList=$(".addTestAnswer");
+        let array=new Array;
+        for(let i=0;i<answerList.length;i++){
+            if(answerList.eq(i).prop("checked")){
+                let data={}
+                data.aId=answerList.eq(i).val();
+                data.tId=localStorage.getItem("tId");
+                array.push(data);
+            }
+        }
+        jsonData.addTestAnswer=array;
+        $.ajax({
+            url:url,
+            type:"post",
+            data:JSON.stringify(jsonData),
+            contentType:"application/json",
+            dataType:"json",
+            success:function (result){
+                if (result.mark){
+                    alert("添加成功！！！");
+                }else{
+                    alert("添加失败！！！");
+                }
+            }
+        })
+    }
+</script>
+</html>

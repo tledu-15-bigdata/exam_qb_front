@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #switch{
+            appearance: none;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            position: relative;
+            width: 2.8rem;
+            height: 1.4rem;
+            /* border: 1px solid #ccc; */
+            background-color: #ccc;
+            border-radius: 0.7rem;
+        }
+        #switch::after{
+            content: "";
+            display:inline-block;
+            width: 1.4rem;
+            height: 1.4rem;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 0 2px #999;
+            transition: left 0.1s;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #switch:checked{
+            background-color: dodgerblue;
+        }
+        #switch:checked::after{
+            position: absolute;
+            top: 0;
+            left: 50%;
+        }
+        button{
+            width: 130px;
+            height: 40px;
+            background-color: dodgerblue;
+            border-radius: 3px;
+            text-align: center;
+            color: white;
+            border: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div id="div">
+    <table cellpadding="10px">
+        <tr>
+            <td>考试状态</td>
+            <td><input type="checkbox" id="switch"></td>
+        </tr>
+        <tr>
+            <td>考试时间</td>
+            <td><input type="date">-到-<input type="date"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button onclick="commitSetUpTestInfo(tId)">提交</button></td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script>
+
+    //提交考试设置信息
+    function commitSetUpTestInfo(tId){
+        let jsondata={};
+        jsondata.tId=tId;
+        if ($("input:first").prop("checked")){
+            jsondata.status=1;
+        }else{
+            jsondata.status=0;
+        }
+
+    }
+</script>
+</html>

@@ -33,7 +33,7 @@ function load(){
         striped: true, //隔行换色
         pageNumber:1, //初始化加载第一页
         pagination:true, //是否分页
-        pageSize:10,   //单页记录数
+        pageSize:2,   //单页记录数
         queryParams:function (params){
             let temp = {
                 uId : JSON.parse(localStorage.getItem("Info")).uId,
@@ -48,7 +48,9 @@ function load(){
                 align:"center",
                 halign:"center",
                 formatter:function (value,row,index){
-                    return "<input type='checkbox' class='test-delete-more' value='"+row.id+"'/>";
+                    console.log(row);
+                    console.log(row.aId);
+                    return "<input type='checkbox' class='test-delete-more' value='"+row.aId+"'/>";
                 }
             },
             {
@@ -189,6 +191,7 @@ function modifyGoods(id,aType){
 
     }
 }
+
 //试题详情
 function lookDetail(id){
     localStorage.setItem("id",id);
