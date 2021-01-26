@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-table/bootstrap-table.min.css">
     <script src="js/jquery-1.9.1.min.js"></script>
-    <style>
-        #paper-li {
-            width: 180px;
-        }
-
-    </style>
 </head>
 <body>
 <div class="container">
@@ -22,8 +16,9 @@
         <div class="header clearfix">
             <div class="top fl">当前位置>题库信息</div>
             <div class="bottom fr" id="paper-li">
+                <a href="javascript:removeDataList()">批量删除</a>
                 <a id="emit" href="javascript:addClassify();">分类管理</a>
-                <a id="keep" href="javascript:addTest();"> + 增加</a>
+                <a id="keep" href="javascript:addAnswer();"> + 增加</a>
             </div>
         </div>
         <div class="main" id="add-classify">
@@ -66,7 +61,7 @@
         });
     }
 
-    function addTest() {
+    function addAnswer() {
         // $("#add-classify").load("addPaperTest.html");
         //弹出层  添加页面
         //打开 弹出层
@@ -80,6 +75,42 @@
         });
 
 
+    }
+
+    function removeDataList(){
+            let url=BASIC_URL+"deleteAnswer";
+            let JsonData={};
+            let testList=$(".test-delete-more")
+            let array=new Array();
+
+            for(let i=0;i<testList.length;i++){
+                if($(".test-delete-more").eq(i).prop("checked")){
+                    let data={};
+                    data.aId=testList.eq(i).val();
+                    array.push(data);
+                }
+
+            }
+            JsonData.deleteAnswer=array;
+
+            console.log(JsonData);
+            $.ajax({
+                url:url,
+                type:'POST',
+                data:JSON.stringify(JsonData),
+                contentType:"application/json",
+                dataType:'json',
+                success:function(result){
+                    console.log(result)
+                    //将返回的result数据，渲染到页面上
+                    if(result.mark==true){
+                        //删除成功-->重新渲染表格的数据
+                        reLoad()
+                    }else{
+                        alert("删除失败");
+                    }
+                }
+            })
     }
 </script>
 </html>

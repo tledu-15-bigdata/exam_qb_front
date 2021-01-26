@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/layer/default/layer.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-table/bootstrap-table.min.css">
+</head>
+<body>
+<div id="div">
+    <div id="top">
+        <a onclick="selectAnswer()">+ 题库选题</a>
+        <a onclick="deleteTestAnswer()">删除选中项</a>
+    </div>
+    <div id="table">
+        <table id="testAnswer-btTable"></table>
+    </div>
+</div>
+</body>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/layer/layer.js"></script>
+<script src="../../js/public.js"></script>
+
+<script src="../../js/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/testAnswer-btTable.js"></script>
+<script>
+    //题库选题
+    function selectAnswer(){
+        layer.open({
+            type:2,
+            title:'选择试题',
+            maxmin:false,
+            shadeClose: false,
+            area:['1000px','70%'],
+            content: 'selectAnswer.html'
+        })
+    }
+
+    function selectAllTestAnswer(){
+        if($(".selectAllTestAnswer").prop("checked")){
+            $(".deleteTestAnswer").prop("checked",true)
+        }else{
+            $(".deleteTestAnswer").prop("checked",false)
+        }
+    }
+    //删除试卷里试题
+    function deleteTestAnswer(){
+        let url=BASIC_URL+"deleteTestAnswer";
+        let atList=$(".deleteTestAnswer");
+        let jsondata={};
+        let array=new Array();
+        for(let i=0;i<atList.length;i++){
+            if(atList.prop("checked")){
+                let data={};
+                data.atId=atList.eq(i).val();
+                // data.tId=localStorage.getItem("tId");
+                array.push(data);
+            }
+        }
+        jsondata.deleteTestAnswer=array;
+        $.ajax({
+            url:url,
+            type: "post",
+            data:JSON.stringify(jsondata),
+            contentType: "application/json",
+            dataType:"json",
+            success:function (result){
+                if (result.mark){
+                    alert("删除成功！！！");
+                    reLoad();
+                }else {
+                    alert("删除失败！！！");
+                }
+            }
+        })
+    }
+</script>
+</html>

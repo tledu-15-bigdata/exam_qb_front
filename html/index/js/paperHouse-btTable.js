@@ -48,7 +48,9 @@ function load(){
                 align:"center",
                 halign:"center",
                 formatter:function (value,row,index){
-                    return "<input type='checkbox' class='test-delete-more' value='"+row.id+"'/>";
+                    console.log(row);
+                    console.log(row.aId);
+                    return "<input type='checkbox' class='test-delete-more' value='"+row.aId+"'/>";
                 }
             },
             {
@@ -189,6 +191,7 @@ function modifyGoods(id,aType){
 
     }
 }
+
 //试题详情
 function lookDetail(id){
     localStorage.setItem("id",id);
