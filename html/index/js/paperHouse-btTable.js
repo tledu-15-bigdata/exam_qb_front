@@ -33,7 +33,7 @@ function load(){
         striped: true, //隔行换色
         pageNumber:1, //初始化加载第一页
         pagination:true, //是否分页
-        pageSize:10,   //单页记录数
+        pageSize:2,   //单页记录数
         queryParams:function (params){
             let temp = {
                 uId : JSON.parse(localStorage.getItem("Info")).uId,
