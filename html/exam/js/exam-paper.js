@@ -28,7 +28,7 @@ function load(){
         dataType:"JSON",
         sidePagination: "client",
         // sidePagination: "server",  //后端分页
-        // striped: true, //隔行换色
+        striped: false, //隔行换色
         // pageNumber:1, //初始化加载第一页
         pagination:false, //是否分页
         // pageSize:10,   //单页记录数
@@ -41,7 +41,7 @@ function load(){
         columns:[
             {
                 align:"center",
-                halign:"center",
+                // halign:"center",
                 formatter:function (value,row,index){
                     let test="";
                     let answer="";
@@ -51,13 +51,13 @@ function load(){
                             '<p>B. '+row.atB+'</p>'+
                             '<p>C. '+row.atC+'</p>'+
                             '<p>D. '+row.atD+'</p>';
-                        answer='<p><input type="radio" name="answer'+(index+1)+'" class="exam-answer-single" value="a" onclick="getSingleAnswerInfo(\''+row.atId+'\')"/>A '+
-                            '<input type="radio" name="answer'+(index+1)+'" class="exam-answer-single" value="b" onclick="getSingleAnswerInfo(\''+row.atId+'\')"/>B '+
-                            '<input type="radio" name="answer'+(index+1)+'" class="exam-answer-single" value="c" onclick="getSingleAnswerInfo(\''+row.atId+'\')"/>C '+
-                            '<input type="radio" name="answer'+(index+1)+'" class="exam-answer-single" value="d" onclick="getSingleAnswerInfo(\''+row.atId+'\')"/>D </p>';
+                        answer='<p><input type="radio" name="answer'+(index+1)+'" class="exam-answer-single" value="a" onclick="getSingleAnswerInfo(this,\''+row.atId+'\')"/>A '+
+                            '<input type="radio" name="answer'+(index+1)+'" class="exam-answer-single" value="b" onclick="getSingleAnswerInfo(this,\''+row.atId+'\')"/>B '+
+                            '<input type="radio" name="answer'+(index+1)+'" class="exam-answer-single" value="c" onclick="getSingleAnswerInfo(this,\''+row.atId+'\')"/>C '+
+                            '<input type="radio" name="answer'+(index+1)+'" class="exam-answer-single" value="d" onclick="getSingleAnswerInfo(this,\''+row.atId+'\')"/>D </p>';
                     }else {
                         test='<p>'+(index+1)+'. '+row.atTopic+'[分值：'+row.atScore+']</p>';
-                        answer='<p>答题区：<textarea class="exam-answer" onblur="getShortAnswerInfo(\''+row.atId+'\')"></textarea>></p>'
+                        answer='<p>答题区：<textarea class="exam-answer" onblur="getShortAnswerInfo(this,\''+row.atId+'\')"></textarea>></p>'
                     }
                     return test+answer;
                 }
@@ -68,21 +68,22 @@ function load(){
 
 }
 
-function getSingleAnswerInfo(atId){
-    console.log($(this))
-    if ($(this).prop("checked")){
+function getSingleAnswerInfo(elem,atId){
+    console.log($(elem).val())
+    if ($(elem).prop("checked")){
         let Answer={}
         Answer.atId=atId;
-        Answer.atAnswer=$(this).val()
+        Answer.atAnswer=$(elem).val()
         ResultList.push(Answer);
+        console.log(ResultList)
 
     }
 
 }
-function getShortAnswerInfo(atId){
+function getShortAnswerInfo(elem,atId){
     let Answer={}
     Answer.atId=atId;
-    Answer.atAnswer=$(this).val()
+    Answer.atAnswer=$(elem).val()
     ResultList.push(Answer);
 
 }

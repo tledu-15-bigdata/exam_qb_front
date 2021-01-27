@@ -60,3 +60,69 @@ function load(){
     })
 
 }
+// 以下代码解决后台分页无法保存分页选中问题
+var $table = $('#selectAnswer-table')
+var selectionIds = []
+//选中事件操作数组
+var union = function (array, ids) {
+    $.each(ids, function (i, id) {
+        if ($.inArray(id, array) == -1) {
+            array[array.length] = id;
+        }
+    });
+    return array;
+};
+//取消选中事件操作数组
+var difference = function (array, ids) {
+    $.each(ids, function (i, id) {
+        var index = $.inArray(id, array);
+        if (index != -1) {
+            array.splice(index, 1);
+        }
+    });
+    return array;
+};
+var _ = { "union": union, "difference": difference };
+//绑定选中事件、取消事件、全部选中、全部取消
+$table.on('check.bs.table check-all.bs.table uncheck.bs.table uncheck-all.bs.table', function (e, rows) {
+    console.log(1111, selectionIds)
+    var ids = $.map(!$.isArray(rows) ? [rows] : rows, function (row) {
+        return row.id;
+    });
+    func = $.inArray(e.type, ['check', 'check-all']) > -1 ? 'union' : 'difference';
+    selectionIds = _[func](selectionIds, ids);
+});
+
+
+// // 以下代码解决后台分页无法保存分页选中问题
+// var $table = $('#selectAnswer-table')
+// var selectionIds = []
+// //选中事件操作数组
+// var union = function (array, ids) {
+//     $.each(ids, function (i, id) {
+//         if ($.inArray(id, array) == -1) {
+//             array[array.length] = id;
+//         }
+//     });
+//     return array;
+// };
+// //取消选中事件操作数组
+// var difference = function (array, ids) {
+//     $.each(ids, function (i, id) {
+//         var index = $.inArray(id, array);
+//         if (index != -1) {
+//             array.splice(index, 1);
+//         }
+//     });
+//     return array;
+// };
+// var _ = { "union": union, "difference": difference };
+// //绑定选中事件、取消事件、全部选中、全部取消
+// $table.on('check.bs.table check-all.bs.table uncheck.bs.table uncheck-all.bs.table', function (e, rows) {
+//     console.log(1111, selectionIds)
+//     var ids = $.map(!$.isArray(rows) ? [rows] : rows, function (row) {
+//         return row.id;
+//     });
+//     func = $.inArray(e.type, ['check', 'check-all']) > -1 ? 'union' : 'difference';
+//     selectionIds = _[func](selectionIds, ids);
+// });

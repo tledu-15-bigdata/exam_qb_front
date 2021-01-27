@@ -145,7 +145,7 @@ function lookForExamInfo(tId){
         maxmin:false,
         shadeClose:false,
         area:['1000px', '90%'],//弹出层的宽高
-        content:'examPaperResult.html',//设置弹出层打开的页面
+        content:'examResult.html',//设置弹出层打开的页面
 
     });
 

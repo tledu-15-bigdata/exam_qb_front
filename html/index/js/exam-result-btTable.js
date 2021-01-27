@@ -36,7 +36,7 @@ function load(){
         pageSize:10,   //单页记录数
         queryParams:function (params){
             let temp = {
-                uId : localStorage.getItem("tId"),
+                tId : localStorage.getItem("tId"),
                 offset : params.offset,
                 pageSize : params.limit
             };

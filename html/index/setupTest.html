@@ -54,8 +54,10 @@
 <div id="div">
     <table cellpadding="10px">
         <tr>
-            <td>考试链接</td>
-            <span id="exam-url"></span>
+            <td>考试码</td>
+            <td>
+                <span id="exam-url"></span>
+            </td>
         </tr>
         <tr>
             <td>考试状态</td>
@@ -92,7 +94,7 @@
             dataType:"json",
             success:function (result){
                 console.log(result);
-                $("#exam-url").val(result.tUrl);
+                $("#exam-url").text(result.tUrl);
                 if (result.status==1){
                     $("input:first").prop("checked",true);
                 }
