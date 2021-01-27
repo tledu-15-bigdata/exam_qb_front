@@ -106,8 +106,9 @@ function load(){
                     //如果将来 涉及到字符串数据传入参数  需要设置单引号
                     let setupTest='<a onclick="setupTest(\''+row.tId+'\')">考试设置</a>'
                     let setupAnswer='<a onclick="setupAnswer(\''+row.tId+'\')">试题设置</a>'
+                    let testExamInfo='<a onclick="lookForExamInfo(\''+row.tId+'\')">考试结果</a>'
                     let deleteTest='<a onclick="deleteTest(\''+row.tId+'\')">删除试卷</a>'
-                    return setupTest+" "+setupAnswer+" "+deleteTest;
+                    return setupTest+" "+setupAnswer+" "+deleteTest+" "+testExamInfo;
                 }
 
             }
@@ -123,15 +124,32 @@ function load(){
 }
 
 //考试设置
-function setupTest(){
+function setupTest(tId){
+    localStorage.setItem("tId",tId);
     layer.open({
         type: 2,//可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。
         title: '考试设置',
         maxmin: false,
         shadeClose: false,
-        area: ['500px', '50%'],//弹出层的宽高
+        area: ['800px', '50%'],//弹出层的宽高
         content: 'setupTest.html'//设置弹出层打开的页面
     });
+}
+
+//显示考试结果
+function lookForExamInfo(tId){
+    localStorage.setItem("tId",tId);
+    layer.open({
+        type:2,//可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。
+        title:'题目修改',
+        maxmin:false,
+        shadeClose:false,
+        area:['1000px', '90%'],//弹出层的宽高
+        content:'examPaperResult.html',//设置弹出层打开的页面
+
+    });
+
+
 }
 //试题设置
 function setupAnswer(tId){

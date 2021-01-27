@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index/css/common.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-table/bootstrap-table.min.css">
+    <style>
+        #exam-boxInPaper-outer {
+            width: 100%;
+            height: 100%;
+            background-color: #f3f3f3
+        }
+
+        #examinee-paper-box {
+            width: 1200px;
+            height: 100%;
+            margin: auto;
+            background-color: white;
+        }
+        #timer{
+            width: 600px;
+            /*margin: auto;*/
+            color: #847b7b;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            left: 800px;
+        }
+        #examinee-paper-button-out{
+            margin: 20px auto;
+            width: 200px;
+            height: 50px;
+        }
+        #complete-answer{
+            font-size: 16px;
+            border-radius: 5px;
+            width: 200px;
+            height: 45px;
+            color: white;
+            /*background-color: #509c29;*/
+            background-image: linear-gradient(to bottom , #822222, #e31717);
+            outline: none;
+            cursor: pointer;
+            border: white;
+            /*position: relative;*/
+            /*left: 100px;*/
+        }
+
+        #complete-answer:hover{
+            background-image: linear-gradient(to bottom , #822222, #a11313);
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div id="exam-boxInPaper-outer">
+    <div id="examinee-paper-box">
+        <!--        <font color ="red"><h2 align="right">倒计时</h2>-->
+        <!--            <font color ="red"><h3 align="right"id="num" size="7" face="impact">30</h3></font>-->
+        <div id="timer"></div>
+
+<!--        <div id="warring" style="color:red"></div>-->
+
+        <table id="examinee-info-table"></table>
+
+        <div id="examinee-paper-button-out">
+            <button id="complete-answer" onclick="handInPaper()">交卷</button>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+<script src="../../js/jquery-3.5.1.js"></script>
+<script src="../../js/public.js"></script>
+
+<script src="../../js/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="js/exam-paper.js"></script>
+<script>
+
+    var maxtime = parseInt(localStorage.getItem("tTime"))*60; //一个小时，按秒计算，自己调整!
+    // var maxtime = parseInt("60")*60; //一个小时，按秒计算，自己调整!
+    function CountDown() {
+        if (maxtime >= 0) {
+            minutes = Math.floor(maxtime / 60);
+            seconds = Math.floor(maxtime % 60);
+            msg = "距离考试结束结束还有: " + minutes + " 分 " + seconds + " 秒";
+            document.all["timer"].innerHTML = msg;
+            if (maxtime == 5 * 60) alert("还剩5分钟");
+            --maxtime;
+        } else {
+            clearInterval(timer);
+            alert("时间到，结束!");
+        }
+    }
+
+    timer = setInterval("CountDown()", 1000);
+
+    function handInPaper(){
+        // let singleAnswer=new Array();
+        // let answerList = $(".exam-answer-single");
+        // for (let i=0;i<answerList.length;i++){
+        //     if (answerList.eq(i).prop("checked")){
+        //         let single={}
+        //         single.text=answerList.eq(i).val()
+        //         singleAnswer.push(single)
+        //     }
+        // }
+        // let shortAnswer=new Array();
+        // let textList = $(".exam-answer");
+        // for (let i=0;i<textList.length;i++){
+        //     let answer={}
+        //     answer.text=textList.eq(i).val()
+        // }
+        //     shortAnswer.push(answer);
+
+        let jsondata={};
+
+        jsondata.eId=localStorage.getItem("eId");
+        jsondata.AnswerResult = ResultList;
+
+        console.log(jsondata);
+
+        $.ajax({
+            url:BASIC_URL+"submitAnswer",
+            type:"post",
+            data:JSON.stringify(jsondata),
+            contentType:"application/json",
+            dataType:"json",
+            success:function (result){
+                console.log(result);
+                if (result!=null){
+                    localStorage.setItem("examResult",JSON.stringify(result));
+                    $("#exam-box-outer").load("examPaperResult.html");
+                }
+            }
+        })
+
+        // $("#exam-box-outer").load("examPaperResult.html");
+
+
+
+    }
+
+
+
+
+</script>
+</html>

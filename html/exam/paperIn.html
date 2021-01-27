@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index/css/common.css">
+	<style>
+		#exam-boxIn-outer{
+			background-color: #f3f3f3;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-image: linear-gradient(to right , #7A88FF, #7AFFAF);
+		}
+        #examinee-info-box{
+            border-radius: 10px ;
+            width: 550px;
+            height: 400px;
+            margin:100px auto;
+            /*border: 1px solid black;*/
+            background-color: white;
+        }
+        #examinee-ingo-table{
+            font-size: 16px;
+            margin:20px auto;
+
+        }
+        #examinee-input-name{
+            outline: none;
+            margin: 0px 10px;
+            padding: 0px 10px;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+
+        }
+
+        #examinee-input-num{
+            outline: none;
+            margin: 0px 10px;
+            padding: 0px 10px;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+        }
+
+        #examinee-begin-button{
+            font-size: 16px;
+            margin: 20px;
+            border-radius: 5px;
+            width: 224px;
+            height: 40px;
+            color: white;
+            /*background-color: #509c29;*/
+            background-image: linear-gradient(to right , #7A88FF, #7AFFAF);
+            outline: none;
+            cursor: pointer;
+            border: white;
+            position: relative;
+            left: -10px;
+        }
+
+        #examinee-begin-button:hover{
+            background-image: linear-gradient(to right , #5f72f6, #49d583);
+        }
+        #examinee-top-caption{
+            font-size: 20px;
+            color: #3db4b4;
+            position: relative;
+            left: -10px;
+            top: 30px;
+            font-weight: bold;
+            margin: 60px;
+        }
+
+	</style>
+
+</head>
+<body>
+<div id="exam-boxIn-outer">
+    <div id="examinee-info-box">
+
+        <table id="examinee-ingo-table">
+            <caption id="examinee-top-caption">考生信息</caption>
+            <tr>
+                <td>
+                    <input type="text" placeholder="请输入姓名" id="examinee-input-name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" placeholder="请输入考试号" id="examinee-input-num">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="examinee-begin-button" onclick="beginExamButton()">开始考试</button>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+<script src="../../js/jquery-3.5.1.js"></script>
+<script src="../../js/public.js"></script>
+<script>
+    function beginExamButton(){
+        let jsondata = {};
+        jsondata.eName=$("#examinee-input-name").val();
+        jsondata.tId=$("#examinee-input-num").val();
+        localStorage.setItem("tId",$("#examinee-input-num").val())
+        jsondata.eId=localStorage.getItem("eId");
+        $.ajax({
+            url:BASIC_URL+"addExamineeName",
+            type:"post",
+            data:JSON.stringify(jsondata),
+            contentType:"application/json",
+            dataType:"json",
+            success:function (result){
+                console.log(result)
+                if (result.tTime != null){
+                    localStorage.setItem("tTime",result.tTime);
+                    $("#exam-box-outer").load("paper.html")
+                }else {
+                    alert("进入考试失败！！！")
+                }
+            }
+        })
+        // $("#exam-box-outer").load("paper.html")
+    }
+
+
+</script>
+</html>

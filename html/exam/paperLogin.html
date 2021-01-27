@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../index/css/common.css">
+		<style>
+			#exam-box-outer{
+				margin: auto;
+				width: 100%;
+				background-color: white;
+				height: 100%;
+				overflow: hidden;
+				background-image: linear-gradient(to right , #7A88FF, #7AFFAF);
+			}
+			#exam-content{
+				margin: 150px auto;
+				width: 320px;
+				height: 300px;
+				/*border: 1px solid black;*/
+				border-radius: 5px;
+				background-color: white;
+			}
+			#exam-login-button{
+				font-size: 16px;
+				margin: 20px;
+				border-radius: 5px;
+				width: 224px;
+				height: 40px;
+				color: white;
+				/*background-color: #509c29;*/
+				background-image: linear-gradient(to right , #7A88FF, #7AFFAF);
+				outline: none;
+				cursor: pointer;
+				border: white;
+				position: relative;
+				left: -10px;
+			}
+			#exam-login-button:hover{
+				/*background-color: #478b26;*/
+				background-image: linear-gradient(to right , #5f72f6, #49d583);
+			}
+			#exam-login-table{
+				font-size: 16px;
+				margin:30px auto;
+				position: relative;
+				left: 5px;
+			}
+			#exam-input-acc{
+				outline: none;
+				margin: 0px 10px;
+				padding: 0px 10px;
+				width: 200px;
+				height: 30px;
+				line-height: 30px;
+				font-size: 14px;
+
+
+			}
+
+			#exam-logo-img{
+				background:url("../../images/tl_logo.jpg");
+				width: 100px;
+				height: 100px;
+				margin:auto;
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+				position: relative;
+				top: 20px;
+
+
+			}
+		</style>
+	</head>
+	<body>
+		<div id="exam-box-outer">
+			<div id="exam-content">
+				<div id="exam-logo-img">
+				</div>
+				<table id="exam-login-table">
+					<tr>
+						<td>
+							<input type="text" placeholder="请输入手机号后六位" id="exam-input-acc"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button id="exam-login-button" onclick="eLogin()">登 录</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+	</body>
+	<script src="../../js/jquery-3.5.1.js"></script>
+	<script src="../../js/public.js"></script>
+	<script>
+		function eLogin(){
+			let eAcc=$("#exam-input-acc").val();
+			console.log(eAcc);
+			localStorage.setItem("eAcc",eAcc);
+			let jsondata = {}
+			jsondata.eAcc=eAcc;
+			$.ajax({
+				url:BASIC_URL+"addExamineeLogin",
+				type:"post",
+				data:JSON.stringify(jsondata),
+				contentType:"application/json",
+				dataType:"json",
+				success:function (result){
+					console.log(result);
+					if (result.eId != null){
+						localStorage.setItem("eId",result.eId);
+						$("#exam-box-outer").load("paperIn.html")
+					}else {
+						alert("进入失败!!!")
+					}
+
+				}
+			})
+			// $("#exam-box-outer").load("paperIn.html");
+		}
+	</script>
+</html>
