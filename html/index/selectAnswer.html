@@ -46,15 +46,23 @@
         let answerList=$(".addTestAnswer");
         let array=new Array;
         let index=parent.layer.getFrameIndex(window.name);
-        for(let i=0;i<answerList.length;i++){
-            if(answerList.eq(i).prop("checked")){
-                let data={}
-                data.aId=answerList.eq(i).val();
-                data.tId=localStorage.getItem("tId");
-                array.push(data);
-            }
+        // for(let i=0;i<answerList.length;i++){
+        //     if(answerList.eq(i).prop("checked")){
+        //         let data={}
+        //         data.aId=answerList.eq(i).val();
+        //         data.tId=localStorage.getItem("tId");
+        //         array.push(data);
+        //     }
+        // }
+        for (let i=0;i<selections.length;i++){
+            let data={};
+            data.aId=selections[i];
+            data.tId=localStorage.getItem("tId");
+            array.push(data);
         }
+        console.log(selections)
         jsonData.addTestAnswer=array;
+        console.log(jsonData)
 
         $.ajax({
             url:url,
@@ -73,5 +81,7 @@
             }
         })
     }
+
+
 </script>
 </html>

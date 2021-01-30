@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index/css/common.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-table/bootstrap-table.min.css">
+    <style>
+        #exam-boxResult-outer {
+            background-color: #f3f3f3;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-image: linear-gradient(to right , #7A88FF, #7AFFAF);
+        }
+
+        #examinee-Result-box {
+            border-radius: 10px ;
+            width: 550px;
+            height: 500px;
+            margin:100px auto;
+            /*border: 1px solid black;*/
+            background-color: white;
+            overflow: hidden;
+        }
+        .examinee-result-table{
+            margin:70px 0px;
+            font-weight: bold;
+            font-size: 20px;
+            color: #3db4b4;
+            position: relative;
+            left: 130px;
+
+            /*text-align: center;*/
+        }
+        #examinee-title{
+            width: 100px;
+            margin:70px auto;
+            font-size: 24px;
+            font-weight: bold;
+            color: #3db4b4;
+
+
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+<div id="exam-boxResult-outer">
+    <div id="examinee-Result-box">
+        <div id="examinee-title">考试结果</div>
+        <table class="examinee-result-table" id="examinee-result-tableId">
+            <tr>
+                <td width="150" height="40">登录号</td>
+                <td>
+                    <span id="result-paper-acc"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="150" height="40">用户名</td>
+                <td>
+                    <span id="result-paper-name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="150" height="40">交卷时间</td>
+                <td>
+                    <span id="result-paper-endTime"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="150" height="40">考试时长</td>
+                <td>
+                    <span id="result-paper-useTime"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="150" height="40">成绩</td>
+                <td>
+                    <span id="result-paper-score"></span>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+
+</div>
+
+</body>
+<script src="../../js/jquery-3.5.1.js"></script>
+<script src="../../js/public.js"></script>
+
+<script>
+    $(function (){
+
+        let examineeInfo = JSON.parse(localStorage.getItem("examResult"));
+        $("#result-paper-acc").text(examineeInfo.eAcc);
+        $("#result-paper-name").text(examineeInfo.eName);
+        $("#result-paper-endTime").text(examineeInfo.endTime);
+        $("#result-paper-useTime").text(examineeInfo.tTime);
+        $("#result-paper-score").text(examineeInfo.eScore);
+    })
+
+</script>
+</html>

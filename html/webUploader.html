@@ -17,6 +17,7 @@
 </div>
 </body>
 <script src="../js/jquery-3.5.1.js"></script>
+<script src="../js/public.js"></script>
 <!--引入JS-->
 <script type="text/javascript" src="../js/webuploader.js"></script>
 <script>
@@ -33,10 +34,10 @@
         // auto: true,
 
         // swf文件路径
-        swf: BASE_URL + '/webupload/Uploader.swf',
+        swf: BASIC_URL + '/webupload/Uploader.swf',
 
         // 文件接收服务端。
-        server: 'http://localhost:8080/exam_qb_ssm/uploadImage',
+        server: BASIC_URL+'uploadImage',
 
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.

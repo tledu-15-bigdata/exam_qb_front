@@ -80,13 +80,20 @@
         let jsondata = {};
         let testList = $(".deleteTests");
         let array = new Array();
-        for (let i = 0; i < testList.length; i++) {
-            if (testList.eq(i).prop("checked")) {
-                let data = {};
-                data.tId = testList.eq(i).val();
-                array.push(data);
-            }
+        // for (let i = 0; i < testList.length; i++) {
+        //     if (testList.eq(i).prop("checked")) {
+        //         let data = {};
+        //         data.tId = testList.eq(i).val();
+        //         array.push(data);
+        //     }
+        // }
+
+        for (let i=0;i<selections.length;i++){
+            let data = {};
+            data.tId=selections[i];
+            array.push(data);
         }
+
         jsondata.deleteTestInfo = array;
         $.ajax({
             url: BASIC_URL + "deleteTestInfo",

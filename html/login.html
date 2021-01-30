@@ -47,6 +47,7 @@
 
 	</body>
 	<script src="../js/jquery-3.5.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/public.js"></script>
 	<script type="text/javascript">
 		//页面高度设置
 		$(document).ready(function () {
@@ -77,37 +78,70 @@
 		//登录
 		function login(){
 			var identity=$("select").val();
+
 			if (identity==="用户"){
-				var url="http://localhost:8080/exam_qb_ssm/userLogin";
-			}else if(identity==="管理员"){
-				var url="http://localhost:8080/exam_qb_ssm/managerLogin";
-			}
-			var jsondata={};
-			jsondata.acc=$("input:first").val();
-			jsondata.pwd=$("input:last").val();
-			$.ajax({
-				url:url,
-				data:JSON.stringify(jsondata),
-				type:"post",
-				contentType:"application/json",
-				dataType:"json",
-				// xhrFields:{
-				// 	withCredentials:true,
-				// },
-				// crossDomain:true,
-				success:function (result){
-					console.log(result)
-					if (result!=null){
-						localStorage.setItem("status","1");
-						localStorage.setItem("Info",JSON.stringify(result));
-						// console.log("localstorage"+localStorage.getItem("Info"))
-						window.location.href="index/MainIndex.html"
-					}else {
-						localStorage.setItem("status","0");
-						alert("账号或密码错误！！！")
+				var jsondata={};
+				jsondata.acc=$("input:first").val();
+				jsondata.pwd=$("input:last").val();
+				var url=BASIC_URL+"userLogin";
+				$.ajax({
+					url:url,
+					data:JSON.stringify(jsondata),
+					type:"post",
+					contentType:"application/json",
+					dataType:"json",
+					// xhrFields:{
+					// 	withCredentials:true,
+					// },
+					// crossDomain:true,
+					success:function (result){
+						console.log(result)
+						if (result!=null){
+							localStorage.setItem("status","1");
+							localStorage.setItem("Info",JSON.stringify(result));
+							// console.log("localstorage"+localStorage.getItem("Info"))
+							window.location.href="index/MainIndex.html"
+						}else {
+							localStorage.setItem("status","0");
+							alert("账号或密码错误！！！")
+						}
 					}
-				}
-			})
+				})
+
+
+			}else if(identity==="管理员"){
+				var jsondata={};
+				jsondata.mAcc=$("input:first").val();
+				jsondata.mPwd=$("input:last").val();
+				var url=BASIC_URL+"managerLogin";
+				// localStorage.setItem("userIdentify","top")
+				$.ajax({
+					url:url,
+					data:JSON.stringify(jsondata),
+					type:"post",
+					contentType:"application/json",
+					dataType:"json",
+					// xhrFields:{
+					// 	withCredentials:true,
+					// },
+					// crossDomain:true,
+					success:function (result){
+						console.log(result)
+						if (result.mark){
+							localStorage.setItem("ManagerStatus","1");
+							// localStorage.setItem("Info",JSON.stringify(result));
+							// console.log("localstorage"+localStorage.getItem("Info"))
+							window.location.href="Manager/ManagerIndex.html"
+						}else {
+							localStorage.setItem("ManagerStatus","0");
+							alert("账号或密码错误！！！")
+						}
+					}
+				})
+
+			}
+
+
 		}
 
 
