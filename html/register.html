@@ -52,6 +52,7 @@
 </div>
 </body>
 <script src="../js/jquery-3.5.1.js"></script>
+<script src="../js/public.js"></script>
 <script type="text/javascript">
     //页面高度设置
     $(document).ready(function () {
@@ -109,7 +110,7 @@
         jsondata.phone=$("#phone").val();
         jsondata.email=$("#email").val();
         $.ajax({
-            url:"http://localhost:8080/exam_qb_ssm/userRegister",
+            url:BASIC_URL+"userRegister",
             data:JSON.stringify(jsondata),
             type:"post",
             contentType:"application/json",

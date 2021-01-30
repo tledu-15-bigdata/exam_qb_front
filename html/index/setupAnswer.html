@@ -47,19 +47,35 @@
     }
     //删除试卷里试题
     function deleteTestAnswer(){
+        console.log(selections);
         let url=BASIC_URL+"deleteTestAnswer";
-        let atList=$(".deleteTestAnswer");
+        // let atList=$(".deleteTestAnswer");
         let jsondata={};
+        // let array=new Array();
+        // for(let i=0;i<atList.length;i++){
+        //     if(atList.prop("checked")){
+        //         let data={};
+        //         data.atId=atList.eq(i).val();
+        //         // data.tId=localStorage.getItem("tId");
+        //         array.push(data);
+        //     }
+        // }
+        // jsondata.deleteTestAnswer=array;
+
+        jsondata.deleteTestAnswer=selections;
+
         let array=new Array();
-        for(let i=0;i<atList.length;i++){
-            if(atList.prop("checked")){
-                let data={};
-                data.atId=atList.eq(i).val();
-                // data.tId=localStorage.getItem("tId");
-                array.push(data);
-            }
+        for (let i=0;i<selections.length;i++){
+            let data={};
+            data.atId=selections[i];
+            data.tId=localStorage.getItem("tId");
+            array.push(data);
         }
         jsondata.deleteTestAnswer=array;
+
+
+        console.log(jsondata)
+
         $.ajax({
             url:url,
             type: "post",

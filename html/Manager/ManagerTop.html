@@ -41,13 +41,6 @@
 			.bx .container .right .r{
 				float: right;
 			}
-			#out-acc{
-				color: #ffffff;
-				text-decoration:none;
-			}
-			#out-acc:hover{
-				color: #dcdcdc;
-			}
 		</style>
 	</head>
 	<body>
@@ -55,29 +48,8 @@
 			<div class="container">
 				<h2 class="left">天亮edu在线考试系统</h2>
 				<div class="right">
-					<span class="l" id="acc-area"></span>
-					<a class="r" id="out-acc" href="javascript:removeUser()">退出</a>
 				</div>
 			</div>
 		</div>
 	</body>
-	<script src="js/jquery-3.5.1.min.js"></script>
-	<script src="../../js/public.js"></script>
-	<script>
-		$(function (){
-			$("#acc-area").text(JSON.parse(localStorage.getItem("Info")).acc);
-		})
-		function removeUser(){
-			localStorage.removeItem("Info")
-			localStorage.setItem("status","0");
-			// window.parent.location.href=$("#contextPath").val()+"../login.html";
-			// window.top.location.href="../login.html"
-			// window.top.location.href="MainIndex.html"
-			window.parent.location.href="MainIndex.html"
-			// window.location.href="MainIndex.html";
-			// window.location.reload(true);
-			// location.reload(true);
-		}
-
-	</script>
 </html>
