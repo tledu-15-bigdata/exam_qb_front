@@ -20,12 +20,12 @@ function load(){
         formatNoMatches:function(){
             return "无匹配数据";
         },
-        url:BASIC_URL+"showMenu",
+        url:BASIC_URL+"managerGetUserInfo",
         method:"POST",
         dataType:"JSON",
         sidePagination: "client",
         // sidePagination: "server",  //后端分页
-        striped: false, //隔行换色
+        striped: true, //隔行换色
         // pageNumber:1, //初始化加载第一页
         pagination:false, //是否分页
         // pageSize:10,   //单页记录数
@@ -42,37 +42,37 @@ function load(){
                 title: "id",
                 align: "center",
                 halign: "center",
-                field:"uId"
+                field: "uId"
             },
             {
                 title: "用户名",
                 align: "center",
                 halign: "center",
-                field:"cc"
+                field: "acc"
             },
             {
                 title: "密码",
                 align: "center",
                 halign: "center",
-                field:"pwd"
+                field: "pwd"
             },
             {
                 title: "手机号",
                 align: "center",
                 halign: "center",
-                field:"phone"
+                field: "phone"
             },
             {
                 title: "邮箱",
                 align: "center",
                 halign: "center",
-                field:"email"
+                field: "email"
             },
             {
                 title: "状态",
                 align: "center",
                 halign: "center",
-                field:"isAllow",
+                field: "isAllow",
                 formatter:function (value,row,index){
                     let text = "正常";
                     if (value==0){
@@ -85,7 +85,7 @@ function load(){
                 title: "创建时间",
                 align: "center",
                 halign: "center",
-                field:"createTime"
+                field: "createTime"
             },
             {
                 title: "操作",
@@ -123,14 +123,14 @@ function changeStatus(uId,isAllow){
         success: function (result) {
             console.log(result)
             if (result.mark) {
-                if (isAllow===0){
+                if (isAllow=="0"){
                     alert("启用成功！！")
                 }else {
                     alert("禁用成功！！")
                 }
                 reLoad();
             } else {
-                if (isAllow===0){
+                if (isAllow=="0"){
                     alert("启用失败！！")
                 }else {
                     alert("禁用失败！！")
@@ -141,7 +141,7 @@ function changeStatus(uId,isAllow){
 }
 
 
-function initPwd(tId) {
+function initPwd(uId) {
     let jsondata = {}
     jsondata.uId = uId;
     console.log(jsondata)

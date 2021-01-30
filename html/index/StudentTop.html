@@ -27,7 +27,7 @@
 			}
 			.bx .container .right{
 				overflow: hidden;
-				width: 124px;
+				width: 200px;
 				padding-top: 19px;
 				float: right;
 			}
@@ -48,6 +48,14 @@
 			#out-acc:hover{
 				color: #dcdcdc;
 			}
+			#acc-images{
+				display: inline-block;
+				width: 32px;
+				height: 32px;
+				border-radius: 16px;
+				/*background-color: red;*/
+				cursor: pointer;
+			}
 		</style>
 	</head>
 	<body>
@@ -55,6 +63,7 @@
 			<div class="container">
 				<h2 class="left">天亮edu在线考试系统</h2>
 				<div class="right">
+					<div id="acc-images" onclick="changeImage()"></div>
 					<span class="l" id="acc-area"></span>
 					<a class="r" id="out-acc" href="javascript:removeUser()">退出</a>
 				</div>
@@ -77,6 +86,10 @@
 			// window.location.href="MainIndex.html";
 			// window.location.reload(true);
 			// location.reload(true);
+		}
+
+		function changeImage(){
+
 		}
 
 	</script>

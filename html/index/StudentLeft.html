@@ -39,15 +39,15 @@
 					console.log(result)
 					for (let i=0;i<result.length;i++){
 						let menu=$('<div class="nav-tit">' +
-								'<a target="main">' +
-								'<img src="../../html/index/images/archives-msg.png" alt="">' +
-								'<span>'+result.get(i).menuName+'</span>' +
+								'<a target="main" class="nav-img">' +
+								'<img src="../../html/index/images/archives-msg.png" alt="" >' +
+								'<span>'+result[i].menuName+'</span>' +
 								'</a>\n' +
 								'</div>')
-						$("#out-list").append(menu);
+						$(".nav-list").append(menu);
 					}
-					$(".nav-tit").eq(0).attr("href","paperHouse.html");
-					$(".nav-tit").eq(1).attr("href","testHouse.html");
+					$(".nav-img").eq(0).attr("href","paperHouse.html");
+					$(".nav-img").eq(1).attr("href","testHouse.html");
 
 
 				}

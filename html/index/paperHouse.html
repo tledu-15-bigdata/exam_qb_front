@@ -83,14 +83,21 @@
             let testList=$(".test-delete-more")
             let array=new Array();
 
-            for(let i=0;i<testList.length;i++){
-                if($(".test-delete-more").eq(i).prop("checked")){
-                    let data={};
-                    data.aId=testList.eq(i).val();
-                    array.push(data);
-                }
-
+            // for(let i=0;i<testList.length;i++){
+            //     if($(".test-delete-more").eq(i).prop("checked")){
+            //         let data={};
+            //         data.aId=testList.eq(i).val();
+            //         array.push(data);
+            //     }
+            //
+            // }
+            for (let i=0;i<selections.length;i++){
+                let data={};
+                data.aId=selections[i];
+                array.push(data);
             }
+
+
             JsonData.deleteAnswer=array;
 
             console.log(JsonData);

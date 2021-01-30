@@ -60,7 +60,7 @@ function load(){
                 title: "创建时间",
                 align: "center",
                 halign: "center",
-                field:"menuTime"
+                field: "createTime"
             },
             {
                 title: "操作",
