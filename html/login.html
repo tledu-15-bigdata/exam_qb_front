@@ -32,7 +32,7 @@
 						</div>
 						<div class="password clearfix">
 							<span>密　码：</span>
-							<input type="password" value="" placeholder="请输入密码" onblur="validatePwd()"/>
+							<input id="pwd" type="password" value="" placeholder="请输入密码" onblur="validatePwd()"/>
 						</div>
 						<div class="btn">
 							<span id="login"><a onclick="login()">登录</a></span>
@@ -82,7 +82,8 @@
 			if (identity==="用户"){
 				var jsondata={};
 				jsondata.acc=$("input:first").val();
-				jsondata.pwd=$("input:last").val();
+				jsondata.pwd=$("#pwd").val();
+				console.log(jsondata)
 				var url=BASIC_URL+"userLogin";
 				$.ajax({
 					url:url,
@@ -95,13 +96,14 @@
 					// },
 					// crossDomain:true,
 					success:function (result){
+						console.log("11111")
 						console.log(result)
-						if (result!=null){
+						if (result.uId!=null){
 							localStorage.setItem("status","1");
 							localStorage.setItem("Info",JSON.stringify(result));
 							// console.log("localstorage"+localStorage.getItem("Info"))
 							window.location.href="index/MainIndex.html"
-						}else {
+						}else{
 							localStorage.setItem("status","0");
 							alert("账号或密码错误！！！")
 						}
@@ -112,7 +114,7 @@
 			}else if(identity==="管理员"){
 				var jsondata={};
 				jsondata.mAcc=$("input:first").val();
-				jsondata.mPwd=$("input:last").val();
+				jsondata.mPwd=$("#pwd").val();
 				var url=BASIC_URL+"managerLogin";
 				// localStorage.setItem("userIdentify","top")
 				$.ajax({

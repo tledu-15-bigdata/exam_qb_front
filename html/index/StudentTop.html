@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link rel="stylesheet" href="css/layer/default/layer.css">
+<!--		<link rel="stylesheet" type="text/css" href="../../css/webuploader.css">-->
 		<style type="text/css">
 			*{
 				margin: 0;
@@ -49,7 +50,7 @@
 			#out-acc:hover{
 				color: #dcdcdc;
 			}
-			#acc-images{
+			#filePicker{
 				display: inline-block;
 				width: 40px;
 				height: 40px;
@@ -75,7 +76,7 @@
 			<div class="container">
 				<h2 class="left">天亮edu在线考试系统</h2>
 				<div class="right">
-					<div id="acc-images" onclick="changeImage()"></div>
+					<div id="filePicker" onclick="changeImage()"></div>
 					<div id="acc-out-box">
 						<span class="l" id="acc-area"></span>
 					</div>
@@ -88,10 +89,11 @@
 	<script src="js/jquery-3.5.1.min.js"></script>
 	<script src="js/layer/layer.js"></script>
 	<script src="../../js/public.js"></script>
+	<script type="text/javascript" src="../../js/webuploader.js"></script>
 	<script>
 		$(function (){
 			$("#acc-area").text(JSON.parse(localStorage.getItem("Info")).acc);
-			$("#acc-images").css("background-image","url('"+BASIC_URL+(JSON.parse(localStorage.getItem("Info")).image)+"')")
+			$("#filePicker").css("background-image","url('"+BASIC_URL+(JSON.parse(localStorage.getItem("Info")).image)+"')")
 		})
 		function removeUser(){
 			localStorage.removeItem("Info")
@@ -105,15 +107,103 @@
 			// location.reload(true);
 		}
 
-		function changeImage(){
-			layer.open({
-				type: 2,//可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。
-				title: '上传头像',
-				maxmin: false,
-				shadeClose: false,
-				area: ['500px', '50%'],//弹出层的宽高
-				content: '../webUploader.html'//设置弹出层打开的页面
-			});
+		// function changeImage(){
+		// 	layer.open({
+		// 		type: 2,//可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。
+		// 		title: '上传头像',
+		// 		maxmin: false,
+		// 		shadeClose: false,
+		// 		area: ['500px', '50%'],//弹出层的宽高
+		// 		content: '../webUploader.html'//设置弹出层打开的页面
+		// 	});
+		// }
+
+
+
+		// var BASE_URL="http://localhost:8080/exam_qb_ssm";
+		var thumbnailWidth = 1;   //缩略图高度和宽度 （单位是像素），当宽高度是0~1的时候，是按照百分比计算，具体可以看api文档
+		var thumbnailHeight = 1;
+
+
+
+		//直接引用 上传对象   WebUploader
+		var uploader = WebUploader.create({
+
+			// 选完文件后，是否自动上传。
+			// auto: true,
+
+			// swf文件路径
+			swf: BASIC_URL + '/webupload/Uploader.swf',
+
+			// 文件接收服务端。
+			server: BASIC_URL+'uploadImage',
+
+			// 选择文件的按钮。可选。
+			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+			pick: '#filePicker',
+
+			// 只允许选择图片文件。
+			accept: {
+				title: 'Images',
+				extensions: 'gif,jpg,jpeg,bmp,png',
+				mimeTypes: 'image/*'
+			}
+		});
+		//
+		// // 当有文件添加进来的时候  文件队列
+		uploader.on( 'fileQueued', function( file ) {
+			console.log("hahahah")
+			$list=$("#thelist");
+			var $li = $(
+					'<div id="' + file.id + '" class="file-item thumbnail">' +
+					'<img>' +
+					'<div class="info">' + file.name + '</div>' +
+					'</div>'
+					),
+					$img = $li.find('img');
+
+
+			// $list为容器jQuery实例
+			$list.append( $li );
+
+			// 创建缩略图
+			// 如果为非图片文件，可以不用调用此方法。
+			// thumbnailWidth x thumbnailHeight 为 100 x 100
+			uploader.makeThumb( file, function( error, src ) {
+				if ( error ) {
+					$img.replaceWith('<span>不能预览</span>');
+					return;
+				}
+
+				$img.attr( 'src', src );
+			}, thumbnailWidth, thumbnailHeight );
+		});
+		// uploader.on( 'uploadProgress', function( file, percentage ) {
+		//     var $li = $( '#'+file.id ),
+		//         $percent = $li.find('.progress span');
+		//
+		//     // 避免重复创建
+		//     if ( !$percent.length ) {
+		//         $percent = $('<p class="progress"><span></span></p>')
+		//             .appendTo( $li )
+		//             .find('span');
+		//     }
+		//
+		//     $percent.css( 'width', percentage * 100 + '%' );
+		// });
+		//
+
+
+
+		//File  每一次上环的内容对象
+		//result 后端返回的数据   JSON格式
+		uploader.on( 'uploadSuccess', function( file ,result) {
+			$( '#'+file.id ).addClass('upload-state-done');
+			console.log(result);
+		});
+
+		function upFile(){
+			uploader.upload();//实现上传
 		}
 
 	</script>

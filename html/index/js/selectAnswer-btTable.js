@@ -32,7 +32,7 @@ function load(){
         striped: true, //隔行换色
         pageNumber:1, //初始化加载第一页
         pagination:true, //是否分页
-        pageSize:5,   //单页记录数
+        pageSize:6,   //单页记录数
         clickToSelect:true,     //是否选中
         maintainSelected:true,
         responseHandler:function(res){
