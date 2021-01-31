@@ -83,6 +83,7 @@
 				var jsondata={};
 				jsondata.acc=$("input:first").val();
 				jsondata.pwd=$("input:last").val();
+				console.log(jsondata)
 				var url=BASIC_URL+"userLogin";
 				$.ajax({
 					url:url,
@@ -96,7 +97,7 @@
 					// crossDomain:true,
 					success:function (result){
 						console.log(result)
-						if (result!=null){
+						if (result.uId != null){
 							localStorage.setItem("status","1");
 							localStorage.setItem("Info",JSON.stringify(result));
 							// console.log("localstorage"+localStorage.getItem("Info"))
@@ -115,6 +116,7 @@
 				jsondata.mPwd=$("input:last").val();
 				var url=BASIC_URL+"managerLogin";
 				// localStorage.setItem("userIdentify","top")
+
 				$.ajax({
 					url:url,
 					data:JSON.stringify(jsondata),
